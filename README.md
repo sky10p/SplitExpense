@@ -1,17 +1,16 @@
 # SplitExpense
 
-Aplicación web ligera para repartir gastos compartidos desde el móvil o el ordenador. Ideal para despedidas, viajes o cualquier plan en grupo donde varias personas pagan distintas cantidades.
+Aplicación móvil creada con [Expo](https://expo.dev/) y React Native para registrar gastos compartidos desde el teléfono y obtener quién debe pagar a quién. Pensada para ejecutarse fácilmente en Android usando la app **Expo Go** o generando un `.apk`/`.aab` listo para instalar.
 
 ## ✨ Características
 
-- Añade participantes y controla quién forma parte de cada gasto.
-- Registra pagos con descripción, importe y la persona que abonó la cuenta.
-- Calcula automáticamente el balance de cada integrante y muestra los pagos sugeridos para equilibrar las cuentas.
-- Guarda los datos en el dispositivo mediante `localStorage` para que puedas cerrar y volver sin perder información.
-- Exporta los datos a un archivo `.json` y vuelve a importarlos en otro dispositivo para seguir donde lo dejaste.
-- Interfaz responsive pensada para usarse cómodamente en móviles Android.
+- Añade y elimina participantes en cuestión de segundos.
+- Registra gastos indicando descripción, importe, pagador y personas implicadas.
+- Calcula automáticamente el balance individual y propone los pagos necesarios para equilibrar las cuentas.
+- Guarda los datos de forma persistente en el dispositivo con `AsyncStorage` para que no se pierdan entre sesiones.
+- Permite exportar la información a un archivo `.json` y volver a importarla pegando el contenido en la propia app.
 
-## 🚀 Puesta en marcha
+## 📱 Instalación y ejecución en Android
 
 1. **Instala dependencias**
 
@@ -19,45 +18,56 @@ Aplicación web ligera para repartir gastos compartidos desde el móvil o el ord
    npm install
    ```
 
-2. **Entorno de desarrollo** (recarga en caliente)
+2. **Instala Expo Go en tu móvil Android**
+
+   Descárgala desde [Google Play](https://play.google.com/store/apps/details?id=host.exp.exponent).
+
+3. **Arranca el proyecto en tu ordenador**
 
    ```bash
-   npm run dev
+   npm start
    ```
 
-   Vite abrirá la aplicación en `http://localhost:5173`.
+   - Se abrirá la interfaz de Expo en tu terminal o navegador.
+   - Escanea el código QR con la cámara o directamente con la app Expo Go.
+   - Asegúrate de que el móvil y el ordenador estén en la misma red Wi‑Fi.
 
-3. **Generar versión de producción**
+4. **Prueba la app en tu móvil**
 
-   ```bash
-   npm run build
-   ```
+   Expo Go descargará el bundle y cargará la app con soporte de recarga en caliente.
 
-   El resultado queda en la carpeta `dist/`. Puedes comprobarla con:
+### Generar un instalable `.apk` o `.aab`
 
-   ```bash
-   npm run preview
-   ```
+Cuando quieras instalar la app sin depender de Expo Go puedes crear un binario nativo usando [EAS Build](https://docs.expo.dev/build/introduction/):
 
-## 🧭 Cómo usarla
+```bash
+npx expo login        # si aún no has iniciado sesión en Expo
+npx expo prebuild     # prepara los proyectos nativos
+npx expo run:android  # genera un .apk de desarrollo (debug)
+```
 
-1. Añade todas las personas del grupo.
-2. Registra cada gasto indicando quién pagó y qué participantes deben compartirlo.
-3. En el panel *Resumen* verás cuánto ha pagado cada persona, su parte proporcional y el saldo final.
-4. La sección *Quién paga a quién* propone los pagos más sencillos para saldar la cuenta.
-5. Necesitas guardar o trasladar la información? Usa **Exportar datos** para descargar un `.json` y **Importar datos** para cargarlo de nuevo en otro dispositivo o navegador.
-6. Si quieres empezar de cero, pulsa **Borrar todo**.
+Para builds de distribución utiliza `eas build --platform android`. En el `app.json` ya está configurado el identificador `com.splitexpense.app` que puedes personalizar. Si necesitas iconos o splash screen personalizados crea un directorio `assets/` y actualiza `app.json` con las rutas a tus imágenes.
 
-## 🧱 Estructura del proyecto
+## 🧪 Pruebas automatizadas
+
+El proyecto incorpora pruebas unitarias que verifican los cálculos de balances y pagos sugeridos.
+
+```bash
+npm test
+```
+
+## 🧭 Estructura del proyecto
 
 ```
-├── app.js          # Lógica principal y gestión de estado/localStorage
-├── index.html      # Marcado principal de la aplicación
-├── styles.css      # Estilos responsive enfocados a móviles
-├── package.json    # Scripts de ejecución y configuración de Vite
+├── App.js                 # Pantallas y lógica principal de la aplicación
+├── app.json               # Configuración de Expo
+├── src/
+│   ├── calculations.js    # Funciones puras para calcular resúmenes y pagos
+│   └── __tests__/         # Tests con Jest sobre la lógica de negocio
+├── package.json
 └── README.md
 ```
 
 ## 📄 Licencia
 
-MIT. Puedes adaptarla a tus necesidades.
+MIT. Siéntete libre de adaptarla a tus necesidades.

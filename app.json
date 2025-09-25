@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "SplitExpense",
+    "slug": "split-expense",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "package": "com.splitexpense.app"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "00000000-0000-0000-0000-000000000000"
+      }
+    }
+  }
+}
